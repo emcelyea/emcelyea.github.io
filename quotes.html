@@ -79,7 +79,10 @@
             {quote:"Run to the fire; don't hide from it.", author:"Meg Whitman"},
             {quote:"Success is the sum of small efforts, repeated day in and day out.", author:"Robert Collier"},
             {quote:"The most certain way to succeed is always to try just one more time.", author:"Thomas Edison"},
-            {quote:"When the going gets tough, put one foot in front of the other and just keep going. Don’t give up.", author:"Roy T. Bennett"}];
+            {quote:"When the going gets tough, put one foot in front of the other and just keep going. Don’t give up.", author:"Roy T. Bennett"},
+            {quote:"Hard work spotlights the character of people: some turn up their sleeves, some turn up their noses, and some don’t turn up at all.", author:"Sam Ewing"},
+            {quote:"He who is not courageous enough to take risks will accomplish nothing in life.", author:"Muhammad Ali"},
+            {quote:"The greater the difficulty, the more the glory in surmounting it.", author:"Epicurus"}];
 
         const quote = quotes[Math.floor(Math.random() * quotes.length)];
         const quoteElem = document.getElementById('quote-text');
@@ -110,7 +113,7 @@
             setInterval(() => {
                 const n = new Notification(quotes[0].quote,{text:quotes[0].author});
                 n.onclick=function(){window.focus()};
-            }, 10000)
+            }, 1800000)
         }
     </script>
     </body>
