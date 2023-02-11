@@ -1,0 +1,117 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+        <style>
+            p,h1,h3,button {
+                font-family: 'Comic Neue', cursive;
+            }
+            body {
+                background-color:rgb(224,200,170);
+                position: relative;
+            }
+
+            .quote-area {
+                height: 100vh;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+            }
+            .quote {
+                max-width: 440px;
+            }
+            @media (max-width: 480px) {
+                .quote {
+                    max-width: 320px;
+                }
+            }
+            .cta {
+                margin-top:80px;
+                max-width: 440px;
+                text-align:left;
+            }
+            .cta h3 {
+                font-size: 22px;
+            }
+            h3 {
+                font-size: 32px;
+            }
+            button {
+                border: 1px solid black;
+                padding: 4px 8px;
+                font-size: 24px;
+                letter-spacing: 1.3px;
+            }
+            #quote-text {
+                font-style: italic;
+            }
+            #quote-author {
+                text-align:right;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="quote-area">
+            <div class="quote">
+                <h3 id="quote-text">Perseverance is the hard work you do after you get tired of doing the hard work you already did.</h3>
+                <h3 id="quote-author">-Newt Gingrich</h3>
+            </div>
+            <div class="cta">
+                <h3>Scheduled motivational quote notifications!<br/><br/>Inspires you to keep at it<br/>Makes you feel guilty if you are wasting time<br/>Keeps you rolling if your already doing work </h3>
+                <button id="tryit-button">Start</button>
+            </div>
+        </div>
+
+    <script>
+        const quotes = [
+            {quote:"Obstacles can't stop you. Problems can't stop you. Most of all, other people can't stop you. Only you can stop you.", author:"Jeffrey Gitomer"},
+            {quote:"Discipline is choosing between what you want now and what you want most.", author:"Augusta F. Kantra"},
+            {quote:"Without labor nothing prospers.", author:"Sophocles"},
+            {quote:"Perseverance is the hard work you do after you get tired of doing the hard work you already did.",author:"Newt Gingrich"},
+            {quote:"This is the real secret of life—to be completely engaged with what you are doing in the here and now.", author:"Alan Wilson Watts"},
+            {quote:"Don't settle for average. Bring your best to the moment. Then, whether it fails or succeeds, at least you know you gave all you had. We need to live the best that's in us.", author:"Angela Bassett"},
+            {quote:"I learned the value of hard work by working hard.",author:"Margaret Mead"},
+            {quote:"Run to the fire; don't hide from it.", author:"Meg Whitman"},
+            {quote:"Success is the sum of small efforts, repeated day in and day out.", author:"Robert Collier"},
+            {quote:"The most certain way to succeed is always to try just one more time.", author:"Thomas Edison"},
+            {quote:"When the going gets tough, put one foot in front of the other and just keep going. Don’t give up.", author:"Roy T. Bennett"}];
+
+        const quote = quotes[Math.floor(Math.random() * quotes.length)];
+        const quoteElem = document.getElementById('quote-text');
+        const quoteAuthor = document.getElementById('quote-author');
+        quoteElem.innerText = quote.quote;
+        quoteAuthor.innerText = '-' + quote.author;
+        
+        const tryit = document.getElementById('tryit-button');
+        tryit.addEventListener('click', askNotificationPermission);
+
+        function askNotificationPermission() {
+            if (!('Notification' in window)) {
+                alert('Browser does not support notifications');
+            }
+            if (Notification.permission === 'granted') {
+                setupNotifications();
+            } else {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        setupNotifications();
+                    } else {
+                        alert('Allow notifications to get notifications');
+                    }
+                })
+            }
+        }
+        function setupNotifications() {
+            setInterval(() => {
+                const n = new Notification(quotes[0].quote,{text:quotes[0].author});
+                console.log(n);
+            }, 10000)
+        }
+    </script>
+    </body>
+</html>
