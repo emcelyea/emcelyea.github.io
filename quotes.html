@@ -109,7 +109,7 @@
         function setupNotifications() {
             setInterval(() => {
                 const n = new Notification(quotes[0].quote,{text:quotes[0].author});
-                console.log(n);
+                n.onclick=function(){window.focus()};
             }, 10000)
         }
     </script>
