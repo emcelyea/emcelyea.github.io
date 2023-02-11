@@ -20,10 +20,14 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                justify-content: flex-start;
+                justify-content: center;
             }
             .quote {
+                background: rgb(235, 220, 190);
+                padding: 16px;
+                border-radius: 8px;
                 max-width: 440px;
+                box-shadow: 0 0 3px 2px rgb(0 0 0 / 20%);
             }
             @media (max-width: 480px) {
                 .quote {
@@ -31,12 +35,13 @@
                 }
             }
             .cta {
-                margin-top:80px;
+                position: absolute;
+                bottom: 24px;
                 max-width: 440px;
                 text-align:left;
             }
             .cta h3 {
-                font-size: 22px;
+                font-size: 20px;
             }
             h3 {
                 font-size: 32px;
@@ -46,6 +51,10 @@
                 padding: 4px 8px;
                 font-size: 24px;
                 letter-spacing: 1.3px;
+                border-radius: 4px;
+            }
+            button:active {
+                background: rgb(212, 203, 203);
             }
             #quote-text {
                 font-style: italic;
@@ -63,7 +72,7 @@
             </div>
             <div class="cta">
                 <h3>Scheduled motivational quote notifications!<br/><br/>Inspires you to keep at it<br/>Makes you feel guilty if you are wasting time<br/>Keeps you rolling if your already doing work </h3>
-                <button id="tryit-button">Start</button>
+                <div style="width:100%;text-align:center;"><button id="tryit-button">Start</button></div>
             </div>
         </div>
 
@@ -82,12 +91,15 @@
             {quote:"When the going gets tough, put one foot in front of the other and just keep going. Don’t give up.", author:"Roy T. Bennett"},
             {quote:"Hard work spotlights the character of people: some turn up their sleeves, some turn up their noses, and some don’t turn up at all.", author:"Sam Ewing"},
             {quote:"He who is not courageous enough to take risks will accomplish nothing in life.", author:"Muhammad Ali"},
-            {quote:"The greater the difficulty, the more the glory in surmounting it.", author:"Epicurus"}];
+            {quote:"The greater the difficulty, the more the glory in surmounting it.", author:"Epicurus"},
+            {quote: "Start where you are. Use what you have. Do what you can.", author:"Arthur Ashe"},
+            {quote:"Perseverance is not a long race; it is many short races one after the other.", author:"Walter Eliot"},
+            {quote: "If you are patient...and wait long enough...Nothing will happen.", author: "Jim Davis"}];
 
         const quote = quotes[Math.floor(Math.random() * quotes.length)];
         const quoteElem = document.getElementById('quote-text');
         const quoteAuthor = document.getElementById('quote-author');
-        quoteElem.innerText = quote.quote;
+        quoteElem.innerText = '"' + quote.quote + '"';
         quoteAuthor.innerText = '-' + quote.author;
         
         const tryit = document.getElementById('tryit-button');
@@ -111,9 +123,18 @@
         }
         function setupNotifications() {
             setInterval(() => {
-                const n = new Notification(quotes[0].quote,{text:quotes[0].author});
-                n.onclick=function(){window.focus()};
-            }, 1800000)
+                const n = new Notification('Check out a quote!');
+                n.onclick=function(){
+                    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+                    const quoteElem = document.getElementById('quote-text');
+                    const quoteAuthor = document.getElementById('quote-author');
+                    quoteElem.innerText = '"' + quote.quote + '"';
+                    quoteAuthor.innerText = '-' + quote.author;
+                    window.focus();
+                };
+
+            }, 1800000);
+            alert('Notifications setup for every 30 minutes');
         }
     </script>
     </body>
