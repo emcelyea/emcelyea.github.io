@@ -63,7 +63,7 @@ a {
     height: 100%;
 }
 .sidebar {
-    width: 24%;
+    width: 23%;
     background: rgba(255,255,255,0.9);
     margin-left: 1%;
     height: 100%;
@@ -138,5 +138,9 @@ p.entry-link {
         margin-bottom: 16px;
         max-height: 76vh;
         overflow: auto;
+    }
+    .article-image {
+        width: 80%;
+        margin: 0 10%;
     }
 }
