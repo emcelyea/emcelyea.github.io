@@ -54,8 +54,8 @@
             {
                 name: 'Book Reviews',
                 entries: [
-                    {name: 'The Paper Menagerie', author: 'Ken Liu'},
-                    {name: 'Pale Fire', author: 'Nabokov'}
+                    {name: 'The Paper Menagerie', author: 'Ken Liu', date: 'March 13, 2023', rating: '76'},
+                    {name: 'Pale Fire', author: 'Nabokov', date: 'March 14, 2023', rating: '82'}
                 ]
             },
         ]

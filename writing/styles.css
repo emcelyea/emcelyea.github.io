@@ -68,6 +68,7 @@ a {
     margin-left: 1%;
     height: 100%;
     padding: 8px;
+    overflow: auto;
 
 }
 .article {
@@ -77,6 +78,7 @@ a {
     padding: 8px;
     border-radius: 4px;
     height: 100%;
+    overflow: auto;
 }
 .section-header p{
     font-size: 20px;
@@ -105,6 +107,16 @@ p.entry-link {
     float: right;
 }
 .article-title {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+}
+.article-title p {
+    font-size: 24px;
+    margin: 4px 0;
+}
+.article-title h1 {
     font-size: 32px;
     margin: 4px 0;
 }
