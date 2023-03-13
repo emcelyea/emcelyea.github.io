@@ -121,10 +121,17 @@ p.entry-link {
     margin: 4px 0;
 }
 @media (max-width: 640px) {
+    .navbar {
+        height: 48px;
+    }
     .navbar-item {
         font-size: 16px;
     }
+    .header {
+        margin-top: 0;
+    }
     .header h1 {
+        margin-top: 0;
         font-size: 24px;
     }
     .sidebar {
@@ -140,7 +147,10 @@ p.entry-link {
         overflow: auto;
     }
     .article-image {
-        width: 80%;
-        margin: 0 10%;
+        width: 74%;
+        margin: 0 13%;
+    }
+    .section-header p {
+        margin-top: 4px;
     }
 }
