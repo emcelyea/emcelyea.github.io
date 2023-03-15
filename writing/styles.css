@@ -138,14 +138,11 @@ a {
     .sidebar {
         width: 100%;
         overflow: auto;
-        max-height: 24vh;
     }
     .article {
         width: 100%;
         margin-right:0;
         margin-bottom: 16px;
-        max-height: 76vh;
-        overflow: auto;
     }
     .article-image {
         width: 74%;
