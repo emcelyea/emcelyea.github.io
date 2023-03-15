@@ -55,7 +55,8 @@
                 name: 'Book Reviews',
                 entries: [
                     {name: 'The Paper Menagerie', author: 'Ken Liu', date: 'March 13, 2023', rating: '76'},
-                    {name: 'Pale Fire', author: 'Nabokov', date: 'March 14, 2023', rating: '82'}
+                    {name: 'Pale Fire', author: 'Nabokov', date: 'March 14, 2023', rating: '81'},
+                    {name: 'Shards of Honor', author: 'Lois McMaster Bujold', date: 'March 15 2023', rating: '83'}
                 ]
             },
         ]
