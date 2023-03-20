@@ -1,8 +1,8 @@
 <html>
     <head>
         <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@200;400&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,600;1,200;1,300;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -22,9 +22,180 @@
                 <div class="article">
                     <div class="article-title"><h1><b>Launching an Npm Package<br/> Part 1</b></h1></div>
                     <p>    
-                        
+                        The days of slapping some JS files together and throwing them on NPM are over. Publishing a reliable package today involves
+                        providing consumers with some guarantees. Your code should have: 
+                    </p>
+                        <ul>
+                            <li>Linting and formatting</li>
+                            <li>Typescript support</li>
+                            <li>Testing</li>
+                            <li>Semantic Versioning</li>
+                        </ul>
+                    <p>
+                          and how to use Github Actions to ensure they are maintained. Part 1 will cover:
+                    </p>
+                    <ul>
+                        <li>Setting up repo dependencies</li>
+                        <li>Setting up bundler</li>
+                        <li>Publishing package</li>
+                        <li>Manually testing</li>
+                    </ul>
+                    <p class="article-section-header">Setup Environment</p>
+                    <p>
+                        You should have a basic knowledge of Node, Github and Npm going into this. You will also need a Github and Npm account.<br/>
+                    </p>
+                    <p>Create a new github repo and clone it to your local filesystem. In the repo directory run:</p>
+                    <pre>npm init</pre>
+                    <p>This will give you a few prompts to setup your <i>package.json</i> file.
+                        <p class="article-section-header">Install Dependencies</p>
+                        <p>
+                        Now we can install the packages we need
+                    to support Typescript, Eslint and Prettier formatting. You can use <i>npm install --save-dev</i> or <i>yarn add -D</i> but I will use yarn for the examples.</p>
+                    <p>Start by adding eslint, typescript and prettier</p>
+                    <pre>
+yarn add -D typescript
+yarn add -D prettier 
+yarn add -D eslint</pre>
+                    <p>Now we need to add a few packages so that eslint, prettier and typescript all play nice together.</p>
+                    <p>Start by adding 
+                        <i>eslint-config-prettier</i>, a package that turns off eslint rules that conflict with prettier formatting.</p>
+                    <pre>yarn add -D eslint-config-prettier</pre>
+                    
+                    <p>Next add plugins that tell eslint how to parse and lint Typescript</p>
+                    <pre>yarn add -D @typescript-eslint/eslint-plugin
+yarn add -D @typescript-eslint/parser</pre>
+                    <p>Finally add some eslint utility packages, <i>eslint-config-airbnb</i> gives us a standard configuration for eslint. You can go wild with your own eslint configuration based on your preferences,
+                    but Airbnbs gives us a great base. <i>eslint-plugin-import</i> provides us with sanity when writing imports by tracing invalid file paths.</p>
+                    <pre>yarn add -D eslint-config-airbnb
+yarn add -D eslint-plugin-import</pre>
+                    <p class="article-section-header">Setup Config Files</p>
+                    <p>The next step is to create a couple configuration and ignore files for eslint, prettier and Typescript.</p>
+                    <p>Create a basic <i>.eslintrc</i> file. In this file we are telling eslint:
+
                     </p> 
-                </div>
+                    <ul>
+                        <li>To lint code as if it is in the browser.</li>
+                        <li>to extend our rules with the airbnb and prettier linting rules</li>
+                        <li>Parse our code using the typescript parser</li>
+                    </ul>                    
+                    <pre>{
+    "env": {
+        "browser": true
+    },
+    "extends": ["airbnb", "prettier"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+    }
+}</pre>
+<p>Create a <i>.prettierrc</i> file</p>
+<pre>{
+    "singleQuote": true,
+    "tabWidth": 2,
+    "semi": true
+}</pre>
+<p>Create <i>.eslintignore</i> & <i>.prettierignore</i> files with:
+    </p>
+    <pre>node_modules/
+    </pre>
+    <p>Finally we setup our <i>.tsconfig.json</i> file. I am using Parcel for bundling our package, which supports typescript without a config file, but Parcel will still
+        consult our <i>.tsconfig.json</i> for some transpilation options. Create a <i>.tsconfig.json</i>.<br/> <i>Note: This is a modified version of the Next.Js default tsconfig</i>
+    </p>
+    <pre>{
+    "compilerOptions": {
+        "allowJs": true /* Allow javascript files to be compiled. */,
+        "jsx": "preserve" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
+        "removeComments": false /* Do not emit comments to output. */,
+        /* Strict Type-Checking Options */
+        "strict": true /* Enable all strict type-checking options. */,
+        "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
+        "strictNullChecks": true /* Enable strict null checks. */,
+        "strictFunctionTypes": true /* Enable strict checking of function types. */,
+        "strictPropertyInitialization": true /* Enable strict checking of property initialization in classes. */,
+        "noImplicitThis": true /* Raise error on 'this' expressions with an implied 'any' type. */,
+        "alwaysStrict": true /* Parse in strict mode and emit "use strict" for each source file. */
+        /* Additional Checks */,
+        "noUnusedLocals": true /* Report errors on unused locals. */,
+        "noUnusedParameters": true /* Report errors on unused parameters. */,
+        "noImplicitReturns": true /* Report error when not all code paths in function return a value. */,
+        "noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */
+        /* Module Resolution Options */,
+        "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
+        "baseUrl": "." /* Base directory to resolve non-absolute module names. */,
+        "allowSyntheticDefaultImports": true /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */,
+        "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
+        /* Source Map Options */
+        "inlineSourceMap": true /* Emit a single file with source maps instead of having a separate file. */,
+        "inlineSources": true /* Emit the source alongside the sourcemaps within a single file; requires '--inlineSourceMap' or '--sourceMap' to be set. */,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "incremental": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true
+    },
+    "include": ["**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules"],
+    "baseUrl": "."
+}</pre>
+
+<p class="article-section-header">Setup Parcel Bundler</p>
+<p>I am using Parcel for bundling. It works great, supports Typescript out of the box and simplifies how we specify what bundles are going to be used for.
+    JS bundles need to be formatted differently based on how and where they will be used. Import JS into a different bundle for the browser, adding JS as the src for a script tag, and 
+    importing js into a node script all have different requirements. <br/>
+    Parcel makes this fairly simple by allowing us to specify our targets in our <i>package.json</i> file. We can specify a "source" field to indicate
+    our entry point, a "module" field to indicate we want it bundled into an ESModule and a "types" field to indicate we want to build a types file.
+</p>
+<p>Start by adding Parcel to our Dev Dependencies</p>
+<pre>yarn add -D Parcel</pre>
+<p>Add "source", "module", "types" fields and some basic scripts for running Parcel to <i>package.json</i></p>
+<pre>"source": "src/index.ts",
+"module": "dist/index.js",
+"types": "dist/types.d.ts",
+"scripts": {
+    "watch": "parcel watch",
+    "build": "parcel build"
+}</pre>
+<p class="article-section-header">Create The Bundle</p>
+<p>Now we can start writing code. Hooray for Javascript. Create a <i>src/index.ts</i> file that exports some TS.</p>
+<pre>type Dog = {
+    name:string;
+}
+export default function getDog(name:string):Dog {
+    return {name}
+}</pre>
+<p>Run our build command</p>
+<pre>yarn build</pre>
+<p>You should now see your bundled JS and types files inside of the <i>dist</i> folder</p>
+<p class="article-section-header">First Publish</p>
+<p>In future articles we will automate publishing using Github Actions, but for now we can manually publish our package to confirm it is working.
+    To check what we are going to publish run:</p>  
+    <pre>npx npm-packlist</pre>
+    <p>To see what the publish command will output without actually publishing run:</p>
+    <pre>npm publish –dry-run</pre>
+    <p>Once you confirm what is going to be published run:</p>
+    <pre>npm publish</pre>
+    <p>And run through the verification steps to publish your package</p>
+    <p class="article-section-header">Importing Your Package</p>
+    <p>The most bulletproof way to test your package is working is by making it a dependency in another project.</p>
+    <ul>
+        <li>make a new folder</li>
+        <li>npm init</li>
+        <li>yarn add -D parcel</li>
+        <li>yarn add *your package*</li>
+        <li>update package.json & create an index.ts that imports your package</li>
+        <li>Run bundler</li>
+    </ul>
+    <p>If your package works this test project that imports it should bundle successfully and your IDE should be aware of any type errors while using it.</p>
+    <p class="article-section-header">Next Steps</p>
+    <p>You are setup to continue publishing your npm package here, but to really make it rock solid there are going to be two more articles:<br/>
+    1. Using Github Actions to setup automated testing, linting and formatting checks.<br/>
+    2. Using Github Actions for Semantic versioning and automated publishing.</p>
+</div>
                 <div class="sidebar" id="sidebar">
                     
                 </div>
