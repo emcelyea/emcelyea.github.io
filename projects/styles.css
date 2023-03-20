@@ -13,14 +13,14 @@ h1,h2,h3,p, a, button {
     font-weight: 400;
 }
 a {
-    color: #ddd;
+    color: #222;
     text-decoration: none;
 }
 a:active {
-    color: #ddd;
+    color: #666;
 }
 a:hover {
-    color: #999;
+    color: #666;
 }
 a {
     font-size: 20px;
@@ -55,6 +55,13 @@ a {
 .header {
     margin-top: 44px;
     padding-left: 2%;
+}
+.projects-list {
+    display: flex;
+    flex-direction: column;
+}
+.project-subtext {
+    margin-top:0;
 }
 @media (max-width: 640px) {
     .navbar-item {
