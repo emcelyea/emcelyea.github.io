@@ -49,7 +49,9 @@
     }
     const sections =  [
             {name: 'Random', entries:[]},
-            {name:'Tech', entries:[]},
+            {name:'Tech', entries:[
+                {name:'Launching NPM package 1', date: 'March 18, 2023'}
+            ]},
             {name:'Climbing', entries:[]},
             {
                 name: 'Book Reviews',
@@ -65,5 +67,5 @@
     for (var i = 0; i < sections.length; i++){
         addSection(sections[i]);
     }
-
+    window.sections = sections;
 })()
