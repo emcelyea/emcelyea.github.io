@@ -48,7 +48,9 @@
         });
     }
     const sections =  [
-            {name: 'Random', entries:[]},
+            {name: 'Random', entries:[
+                {name:'Trying The Carnivore Diet', date: 'March 28, 2023'}
+            ]},
             {name:'Tech', entries:[
                 {name:'Launching NPM package 1', date: 'March 18, 2023'}
             ]},
@@ -56,10 +58,12 @@
             {
                 name: 'Book Reviews',
                 entries: [
-                    {name: 'The Mom Test', author: 'Rob Fitzpatrick', date: 'March 27, 2023', rating: '76'},
-                    {name: 'The Paper Menagerie', author: 'Ken Liu', date: 'March 13, 2023', rating: '76'},
-                    {name: 'Pale Fire', author: 'Nabokov', date: 'March 14, 2023', rating: '81'},
-                    {name: 'Shards of Honor', author: 'Lois McMaster Bujold', date: 'March 15 2023', rating: '83'}
+                    {name: 'The Mom Test', author: 'Rob Fitzpatrick', date: 'March 26, 2023', rating: '72'},
+                    {name: 'The Paper Menagerie', author: 'Ken Liu', date: 'March 13, 2023', rating: '60'},
+                    {name: 'Pale Fire', author: 'Nabokov', date: 'March 14, 2023', rating: '72'},
+                    {name: 'Shards of Honor', author: 'Lois McMaster Bujold', date: 'March 15 2023', rating: '58'},
+                    {name: 'Circe', author: 'Madeline Miller', date: 'March 28 2023', rating: '74'}
+
                 ]
             },
         ]
