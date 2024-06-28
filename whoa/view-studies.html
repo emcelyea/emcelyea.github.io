@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Study List</title>
+  <link rel="stylesheet" href="data/studylist/css/studies.min.css" />
+</head>
+
+<body id="body">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header" style="display: inline-block">
+        <a class="navbar-brand" href="https://joints.medstrat.com/app"><i class="fa fa-cloud"></i> Joints</a>
+      </div>
+
+      <ul class="nav navbar-nav pull-right">
+      <li style="display: inline-block"><a href="#">Offline Mode</a>
+      <ul>
+    </div>
+  </nav>
+ 
+  <div id="masthead" class="container container-full-width">
+    <div class="row">
+      <div class="col-xs-2">
+      <button id='viewSelected' class="btn btn-primary" type="submit" disabled><i class="fa fa-folder-open fa-fw"></i>&nbsp;View Selected</button>
+      </div>
+      <div class="col-xs-offset-8 col-xs-2">
+      <button id='viewAll' class="btn btn-primary pull-right" type="submit"><i class="fa fa-folder-open fa-fw"></i>&nbsp;View All</button>
+      </div>
+    </div>
+  </div>
+ 
+  <div id="maincontent" class="container container-full-width">
+    <table id="streamTable" class="table table-borderless table-striped table-hover" style="margin-top: 0px;">
+      <thead class="stream-thead">
+        <tr>
+          <th style="width: 36px; "><label><input id="btnSelectAll" type="checkbox"><span></span></label></th>
+          <th>Name</th>
+          <th title="Patient Sex"><i class="fa fa-male"></i></th>
+          <th>ID</th>
+          <th>Received</th>
+          <th>Studied</th>
+          <th title="Modality"><i class="fa fa-laptop"></i></th>
+          <th>Physician</th>
+          <th title="Number of DICOMs"><i class="fa fa-camera fa-fw"></i></th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody id="studyTableBody">
+      </tbody>
+    </table>
+  </div>
+
+  <div id="footer" class="container container-full-width footer-fixed-bottom hidden-xs">
+    <div id="statusBar" class="row head-room foot-room">
+      <div class="col-sm-6 footer-dull-text" style="text-align: left">
+        Visit us at <a href="https://www.medstrat.com">www.medstrat.com</a> | <a href="https://www.medstrat.com/faq">FAQ</a>
+      </div>
+      <div class="col-sm-6">
+        <span id="copyright" class="pull-right footer-dull-text">   &nbsp; Joints &nbsp; &copy; 2006-2020 Medstrat, Inc. All rights reserved.&nbsp;</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="data/studylist/js/jquery-2.1.0.min.js"></script>
+  <script src="data/studylist/js/studylist.js"/></script>
+  <script src="data/studylist/js/studyrows.js"/></script>
+  <script type="text/javascript">
+    $('#btnSelectAll').change(selectAllChanged)
+    $('#viewSelected').click(viewSelected)
+    $('#viewAll').click(viewAll)
+    addStudiesToTable()
+  </script> 
+</body>
+</html>
